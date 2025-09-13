@@ -21,6 +21,7 @@
 # cache and metadata
 *.pdb
 *.pidb.meta
+*.meta
 *.mdb
 *.VC.db
 *.opendb
