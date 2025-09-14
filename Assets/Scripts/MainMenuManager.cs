@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 
 /// <summary>
-/// this class own the logic of the Main Menu Scene
+/// this class owns the logic of the Main Menu Scene
 /// </summary>
 public class MainMenuManager : MonoBehaviour 
 {
