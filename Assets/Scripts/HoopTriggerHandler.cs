@@ -24,6 +24,14 @@ public class HoopTriggerHandler : MonoBehaviour
         {
             // Check if the collider that entered has the tag "ball"
             Debug.Log("Score!");
+            BallHandler ballHandler = other.GetComponent<BallHandler>();
+            if(ballHandler != null)
+            {
+                if (ballHandler.touchedRim) Debug.Log("rimshot!");
+                if (ballHandler.touchedBackboard) Debug.Log("backboard shot!");
+
+
+            }
         }
     }
 }

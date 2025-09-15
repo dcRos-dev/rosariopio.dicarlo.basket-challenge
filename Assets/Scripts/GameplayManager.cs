@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameHandler : MonoBehaviour
+public class GameplayManager : MonoBehaviour
 {
     [Header("Gameplay settings")]
     [SerializeField] private float maxTime;

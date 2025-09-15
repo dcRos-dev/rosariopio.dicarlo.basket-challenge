@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 9118899939513279089}
   - component: {fileID: 8720779031944381927}
   - component: {fileID: 8720779031944381926}
+  - component: {fileID: 3267332771721980366}
   m_Layer: 0
   m_Name: Basketball
   m_TagString: ball
@@ -146,3 +147,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &3267332771721980366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8486760281214908619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf7d58e4b1176f4bb0801dbdd846349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
