@@ -1,19 +1,18 @@
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
-
 
 
 public class ShootHandler : MonoBehaviour
 {
     [Header("shooting values")]
     public float Angle;
-    public Slider PrecisionSlider;
+
+
     [Space]
     [Header("References")]
     [SerializeField] private Transform[] targetPositions;
     [SerializeField] private Transform[] shootingTransforms;
     [SerializeField] private GameObject ball;
+    [SerializeField] private InputHandler inputHandler;
 
     private BallHandler ballHandler;
     private Vector3 perfectVel = Vector3.zero;
@@ -21,6 +20,16 @@ public class ShootHandler : MonoBehaviour
     private Transform currentShootingTransform;
     private Rigidbody ballRb;
 
+
+    private void OnEnable()
+    {
+        inputHandler.OnSwipeEnded += Shot;
+    }
+
+    private void OnDisable()
+    {
+        inputHandler.OnSwipeEnded -= Shot;
+    }
 
     void Start()
     {
@@ -42,6 +51,7 @@ public class ShootHandler : MonoBehaviour
 
 
 
+
     /*
     public void Shot()
     {
@@ -59,13 +69,12 @@ public class ShootHandler : MonoBehaviour
     */
 
     [Tooltip("shoot the ball")]
-    public void Shot()
+    public void Shot(float sliderValue)
     {
-        float precision = PrecisionSlider.value;
         float forceMultiplier = 1f;
 
         // Get the target position and force multiplier based on the precision value
-        Vector3 targetPos = GetTargetByPrecisionValue(precision,out forceMultiplier);
+        Vector3 targetPos = GetTargetByPrecisionValue(sliderValue,out forceMultiplier);
         // Calculate the initial velocity needed to reach the target
         Vector3 velocity = GetPerfectVelocity(currentShootingTransform.position, targetPos);
         Vector3 finalForce = velocity * ballRb.mass * forceMultiplier;

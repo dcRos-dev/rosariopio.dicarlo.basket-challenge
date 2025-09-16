@@ -1940,7 +1940,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Angle: 70
-  PrecisionSlider: {fileID: 1314837703}
   targetPositions:
   - {fileID: 1793320571}
   - {fileID: 330771995}
@@ -1948,6 +1947,7 @@ MonoBehaviour:
   shootingTransforms:
   - {fileID: 1796050766}
   ball: {fileID: 919132149001465836}
+  inputHandler: {fileID: 797129899}
 --- !u!114 &797129899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1960,6 +1960,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f10b327bc84368b4bb4e613f63e277fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  precisionSlider: {fileID: 1314837703}
+  maxSwipeDistance: 1500
 --- !u!1 &895426118
 GameObject:
   m_ObjectHideFlags: 0
@@ -2132,7 +2134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &916127515
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2149,11 +2151,11 @@ RectTransform:
   m_Father: {fileID: 263232379}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 210}
-  m_SizeDelta: {x: 386.0159, y: 175.6545}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -100, y: 100}
+  m_SizeDelta: {x: 200, y: 200}
+  m_Pivot: {x: 1, y: 0}
 --- !u!114 &916127516
 MonoBehaviour:
   m_ObjectHideFlags: 0
