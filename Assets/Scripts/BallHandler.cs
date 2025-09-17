@@ -24,6 +24,20 @@ public class BallHandler : MonoBehaviour
 
     }
 
+
+
+    /// <summary>
+    /// Calculates and returns the score based on whether the ball touched the rim or backboard.
+    /// </summary>
+    public int GetScore()
+    {
+        if(touchedBackboard || touchedRim)
+        {
+            return 2;
+        }
+        return 3;
+    }
+
     public void ResetShot()
     {
         touchedRim = false;

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -6,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class HoopTriggerHandler : MonoBehaviour
 {
-
+    public event Action<int> OnScore;
 
     void Start()
     {
@@ -29,9 +30,10 @@ public class HoopTriggerHandler : MonoBehaviour
             {
                 if (ballHandler.touchedRim) Debug.Log("rimshot!");
                 if (ballHandler.touchedBackboard) Debug.Log("backboard shot!");
-
-
             }
+
+            OnScore?.Invoke(ballHandler.GetScore());
         }
     }
+
 }

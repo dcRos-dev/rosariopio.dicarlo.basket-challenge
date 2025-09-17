@@ -539,6 +539,17 @@ Transform:
   m_Father: {fileID: 691409755}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &80161221 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5695608339644145503, guid: 1e656cb2659ae47438f1ef54266342c2, type: 3}
+  m_PrefabInstance: {fileID: 4755292497903963392}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c400736d9b5d9a94caa159c0a994836e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &172055655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,7 +1196,7 @@ GameObject:
   - component: {fileID: 501387495}
   - component: {fileID: 501387494}
   m_Layer: 5
-  m_Name: PointsText
+  m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2715,7 +2726,7 @@ GameObject:
   - component: {fileID: 1363382354}
   - component: {fileID: 1363382353}
   m_Layer: 5
-  m_Name: PointsImage
+  m_Name: ScoreImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2792,7 +2803,7 @@ GameObject:
   - component: {fileID: 1389771624}
   - component: {fileID: 1389771623}
   m_Layer: 5
-  m_Name: PointsText
+  m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2865,12 +2876,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 20
+  m_fontSizeMax: 40
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -3040,7 +3051,7 @@ GameObject:
   - component: {fileID: 1507778559}
   - component: {fileID: 1507778558}
   m_Layer: 5
-  m_Name: PointsImage
+  m_Name: ScoreImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4008,8 +4019,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc70e7fef7571d04186f8bc79cd36de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoopTrigger: {fileID: 80161221}
   maxTime: 300
   timerText: {fileID: 1904945488}
+  scoreText: {fileID: 1389771623}
   LoadingPanel: {fileID: 30437962}
 --- !u!1 &1990000134
 GameObject:
