@@ -1,8 +1,8 @@
 using System;
-using TMPro; 
+using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -79,6 +79,9 @@ public class GameplayManager : MonoBehaviour
         Debug.Log("Earned points: " + pt);
         Debug.Log("Current score: " + score);
     }
+
+    
+
 
 
 

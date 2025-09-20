@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 
@@ -5,21 +7,22 @@ public class ShootHandler : MonoBehaviour
 {
     [Header("shooting values")]
     public float Angle;
-
+    public float ShotDuration;
 
     [Space]
     [Header("References")]
     [SerializeField] private Transform[] targetPositions;
     [SerializeField] private Transform[] shootingTransforms;
     [SerializeField] private GameObject ball;
+    [SerializeField] private Transform playerContainer;
     [SerializeField] private InputHandler inputHandler;
 
     private BallHandler ballHandler;
-    private Vector3 perfectVel = Vector3.zero;
     private Transform targetPosition;
-    private Transform currentShootingTransform;
+    private Vector3 perfectVel = Vector3.zero;
+    private Vector3 currentBallStartingPosition = Vector3.zero;
     private Rigidbody ballRb;
-
+    private int prevIndex = -1;
 
     private void OnEnable()
     {
@@ -36,12 +39,13 @@ public class ShootHandler : MonoBehaviour
         //Set initial shooting position for testing the perfect shot calculation
         if (shootingTransforms.Length.Equals(0) || targetPositions.Length.Equals(0)) return;
 
-        currentShootingTransform = shootingTransforms[0];
-        //targetPosition = targetPositions[1];
-        
         //ball references
         ballRb = ball.GetComponent<Rigidbody>();
         ballHandler = ball.GetComponent<BallHandler>();
+
+        //initially setting player to first position
+        currentBallStartingPosition = ball.transform.position;
+        ChangePlayerPos(0);
     }
 
     void Update()
@@ -49,7 +53,44 @@ public class ShootHandler : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Sets the player's position to a random spot, avoiding repetition.
+    /// </summary>
+    public void RandomPlayerPos()
+    {
+        int randomIndex;
 
+        // Looping to avoid selecting the same position 
+        // checking the list length to prevent infinite looping.
+        do
+        {
+            randomIndex = Random.Range(0, shootingTransforms.Length);
+        } while (randomIndex == prevIndex && shootingTransforms.Length > 1);
+        
+        ChangePlayerPos(randomIndex);
+    }
+
+    /// <summary>
+    /// sets the player's position to a specific spot based on the given index.
+    /// </summary>
+    public void ChangePlayerPos(int positionIndex)
+    {
+        if (shootingTransforms[positionIndex] != null)
+        {
+            ResetBallPosition(); //resetting ball position before changing player shooting spot
+
+            playerContainer.position = shootingTransforms[positionIndex].position;
+            playerContainer.rotation = shootingTransforms[positionIndex].rotation;
+
+            //saving the new reset position
+            SaveCurrentShootingPosition();
+            prevIndex = positionIndex;
+        }
+        else
+        {
+            Debug.Log("null");
+        }
+    }
 
 
     /*
@@ -75,14 +116,18 @@ public class ShootHandler : MonoBehaviour
 
         // Get the target position and force multiplier based on the precision value
         Vector3 targetPos = GetTargetByPrecisionValue(sliderValue,out forceMultiplier);
+
         // Calculate the initial velocity needed to reach the target
-        Vector3 velocity = GetPerfectVelocity(currentShootingTransform.position, targetPos);
+        // Changed logic to consider the ball's position based on different shooting spots 
+        Vector3 velocity = GetPerfectVelocity(ball.transform.position, targetPos);
         Vector3 finalForce = velocity * ballRb.mass * forceMultiplier;
 
         // Apply force to shoot the ball
         ballRb.isKinematic = false;
         ballRb.velocity = Vector3.zero;
         ballRb.AddForce(finalForce, ForceMode.Impulse);
+
+        StartCoroutine(ResetShotAfterDelay());
     }
 
     /// <summary>
@@ -93,7 +138,7 @@ public class ShootHandler : MonoBehaviour
         ballHandler.ResetShot();
         ballRb.isKinematic = true;
         ballRb.velocity = Vector3.zero;
-        ball.transform.position = currentShootingTransform.position;
+        ball.transform.position = currentBallStartingPosition;
     }
 
     /// <summary>
@@ -194,5 +239,23 @@ public class ShootHandler : MonoBehaviour
         //Debug.Log("final velocity: " + velocity);
 
         return velocity * ballRb.mass;
+    }
+
+    /// <summary>
+    /// Stores the ball's current transform to reset it after each shot.
+    /// </summary>
+    private void SaveCurrentShootingPosition()
+    {
+        currentBallStartingPosition = ball.transform.position;
+        //currentBallStartingPosition.rotation = ball.transform.rotation;
+    }
+
+    /// <summary>
+    /// Change the player position after waiting for fixed time 
+    /// </summary>
+    private IEnumerator ResetShotAfterDelay()
+    {
+        yield return new WaitForSeconds(ShotDuration);
+        RandomPlayerPos();
     }
 }
