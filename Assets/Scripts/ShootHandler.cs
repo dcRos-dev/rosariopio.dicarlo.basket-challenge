@@ -11,11 +11,12 @@ public class ShootHandler : MonoBehaviour
 
     [Space]
     [Header("References")]
-    [SerializeField] private Transform[] targetPositions;
+    [SerializeField] private Transform[] targetTransforms;
     [SerializeField] private Transform[] shootingTransforms;
     [SerializeField] private GameObject ball;
     [SerializeField] private Transform playerContainer;
     [SerializeField] private InputHandler inputHandler;
+    [SerializeReference] private CameraHandler cameraHandler;
 
     private BallHandler ballHandler;
     private Transform targetPosition;
@@ -37,7 +38,7 @@ public class ShootHandler : MonoBehaviour
     void Start()
     {
         //Set initial shooting position for testing the perfect shot calculation
-        if (shootingTransforms.Length.Equals(0) || targetPositions.Length.Equals(0)) return;
+        if (shootingTransforms.Length.Equals(0) || targetTransforms.Length.Equals(0)) return;
 
         //ball references
         ballRb = ball.GetComponent<Rigidbody>();
@@ -81,6 +82,8 @@ public class ShootHandler : MonoBehaviour
 
             playerContainer.position = shootingTransforms[positionIndex].position;
             playerContainer.rotation = shootingTransforms[positionIndex].rotation;
+
+            
 
             //saving the new reset position
             SaveCurrentShootingPosition();
@@ -126,7 +129,7 @@ public class ShootHandler : MonoBehaviour
         ballRb.isKinematic = false;
         ballRb.velocity = Vector3.zero;
         ballRb.AddForce(finalForce, ForceMode.Impulse);
-
+        cameraHandler.SwitchToBallCamera();
         StartCoroutine(ResetShotAfterDelay());
     }
 
@@ -139,6 +142,10 @@ public class ShootHandler : MonoBehaviour
         ballRb.isKinematic = true;
         ballRb.velocity = Vector3.zero;
         ball.transform.position = currentBallStartingPosition;
+
+        // Orient the ball toward the hoop for camera alignment
+        Vector3 direction = GetShotDirection();
+        ball.transform.LookAt(direction);
     }
 
     /// <summary>
@@ -149,7 +156,6 @@ public class ShootHandler : MonoBehaviour
     /// 
     /// The returned position includes a randomized offset based on shot deviation.
     /// </summary>
-
     private Vector3 GetTargetByPrecisionValue(float sliderValue, out float forceMultiplier)
     {
         //slider value for a perfect shot and backboard shot
@@ -171,7 +177,7 @@ public class ShootHandler : MonoBehaviour
         if (delta < 0.02f)
         {
             // Very close to the target: either a perfect shot or a backboard shot
-            finalTarget = closestIsPerfect ? targetPositions[0] : targetPositions[1];
+            finalTarget = closestIsPerfect ? targetTransforms[0] : targetTransforms[1];
             delta = 0f;
             Debug.Log("perfect shot or backboard shot");
         }
@@ -179,13 +185,13 @@ public class ShootHandler : MonoBehaviour
         {
             //rim shot
             delta = 0f;
-            finalTarget = targetPositions[2]; 
+            finalTarget = targetTransforms[2]; 
             Debug.Log("rim shot");
         }
         else
         {
             Debug.Log("miss");
-            finalTarget = targetPositions[0];
+            finalTarget = targetTransforms[0];
 
             // Maximum spread for poor haim
             spreadFactor = 1.5f;
@@ -257,5 +263,22 @@ public class ShootHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(ShotDuration);
         RandomPlayerPos();
+        cameraHandler.SwitchToPlayerCamera();
+    }
+
+    /// <summary>
+    /// Calculates the horizontal direction between the player and the hoop
+    /// used to rotate elements toward the target.
+    /// </summary>
+    private Vector3 GetShotDirection()
+    {
+        
+        Vector3 hoopPosition = targetTransforms[0].position;
+
+        //get the direction
+        Vector3 direction = hoopPosition - playerContainer.position;
+        Vector3 planarDirection = new Vector3(direction.x, 0f, direction.z);
+
+        return planarDirection;
     }
 }
