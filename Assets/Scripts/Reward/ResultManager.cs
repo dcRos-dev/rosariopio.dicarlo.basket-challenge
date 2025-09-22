@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,11 +6,13 @@ public class ResultManager : MonoBehaviour
 {
 
     [Header("Ui References")]
-    [SerializeField] public GameObject loadingPanel, buttonsContainer;
+    [SerializeField] private GameObject loadingPanel;
+    [SerializeField] private GameObject buttonsContainer;
+    [SerializeField] private TextMeshProUGUI scoreText;
     
     void Start()
     {
-        
+        scoreText.text = GameData.FinalScore.ToString();
     }
 
     void Update()

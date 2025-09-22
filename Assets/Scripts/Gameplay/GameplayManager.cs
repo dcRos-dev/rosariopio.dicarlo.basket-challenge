@@ -82,6 +82,9 @@ public class GameplayManager : MonoBehaviour
 
     private void LoadResults()
     {
+        //Store the final score to display in the "Reward" scene
+        GameData.FinalScore = score;
+
         OnTimeFinished -= LoadResults; // avoid multiple invocations
         //game ended, shows results
         LoadingPanel.SetActive(true);
@@ -97,4 +100,9 @@ public class GameplayManager : MonoBehaviour
 
 
 
+}
+
+public static class GameData
+{
+    public static int FinalScore;
 }
