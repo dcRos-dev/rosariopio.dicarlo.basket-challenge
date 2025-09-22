@@ -9,6 +9,10 @@ public abstract class GameEvent : MonoBehaviour
     public int Points { get; protected set; }
     public EventRarity Rarity { get; protected set; }
 
+
+    //time before the event expires
+    public float Duration { get; protected set; } 
+
 }
 
 public enum EventRarity

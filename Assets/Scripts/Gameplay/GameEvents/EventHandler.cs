@@ -9,12 +9,12 @@ public class EventHandler : MonoBehaviour
 {
     [SerializeField] private float globalProbability = 0.3f;
 
-
     private List<GameEvent> availableEvents = new List<GameEvent>();
     private GameEvent currentEvent = null;
 
     //timer values
     private float timer = 0f;
+    private float eventTimer = 0f;
     private float checkInterval = 4f;
 
     private void Start()
@@ -32,11 +32,26 @@ public class EventHandler : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer >= checkInterval)
+
+        if (currentEvent == null)
         {
-            timer = 0f;
-            TryTriggerEvent();
+            if (timer >= checkInterval)
+            {
+                timer = 0f;
+                TryTriggerEvent();
+            }
         }
+        else
+        {
+            eventTimer += Time.deltaTime;
+
+            if (eventTimer >= currentEvent.Duration)
+            {
+                Debug.Log("Event expired: " + currentEvent.Name);
+                ResetEvent();
+            }
+        }
+
     }
 
     private void TryTriggerEvent()
@@ -74,6 +89,7 @@ public class EventHandler : MonoBehaviour
     public void ResetEvent()
     {
         currentEvent = null;
+        eventTimer = 0f;
     }
 
 
