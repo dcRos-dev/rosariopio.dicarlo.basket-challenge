@@ -79,10 +79,6 @@ public class GameplayManager : MonoBehaviour
         Debug.Log("Current score: " + score);
     }
 
-    
-
-
-
 
     private void LoadResults()
     {

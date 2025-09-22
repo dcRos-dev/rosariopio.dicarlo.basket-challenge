@@ -2593,7 +2593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b549269249736dd4d9af8fd2da205cf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Angle: 60
+  Angle: 58
   ShotDuration: 3
   targetTransforms:
   - {fileID: 1793320571}
@@ -2636,7 +2636,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 41946347}
-  ShootPosCameras: []
   ballCamera: {fileID: 913870945}
   currentPlayerCamera: {fileID: 2104383412}
   colliderCameraHandler: {fileID: 2105933952}
@@ -2665,14 +2664,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853320781}
-  m_LocalRotation: {x: -0, y: 0.36958343, z: -0, w: 0.9291976}
-  m_LocalPosition: {x: -0.22, y: -0.029, z: 5.11}
+  m_LocalRotation: {x: -0, y: 0.29370457, z: -0, w: 0.9558963}
+  m_LocalPosition: {x: -0.84, y: -0.029, z: 4.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 707683516}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 43.38, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 34.16, z: 0}
 --- !u!1 &858556218
 GameObject:
   m_ObjectHideFlags: 0
@@ -5824,14 +5823,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1923294797}
-  m_LocalRotation: {x: -0, y: 0.3065803, z: -0, w: 0.9518448}
-  m_LocalPosition: {x: -1.26, y: -0.029, z: 3.71}
+  m_LocalRotation: {x: -0, y: 0.2269444, z: -0, w: 0.9739077}
+  m_LocalPosition: {x: -1.88, y: -0.029, z: 2.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 707683516}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 35.707, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 26.234, z: 0}
 --- !u!1 &1925099640
 GameObject:
   m_ObjectHideFlags: 0
@@ -5842,6 +5841,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1925099641}
   - component: {fileID: 1925099642}
+  - component: {fileID: 1925099643}
   m_Layer: 0
   m_Name: '[Gameplay Manager]'
   m_TagString: Untagged
@@ -5881,6 +5881,19 @@ MonoBehaviour:
   timerText: {fileID: 1904945488}
   scoreText: {fileID: 1389771623}
   LoadingPanel: {fileID: 30437962}
+--- !u!114 &1925099643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925099640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7efbc75b1e1296942b41b869cb3a1865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalProbability: 0.3
 --- !u!1 &1990000134
 GameObject:
   m_ObjectHideFlags: 0
@@ -6857,6 +6870,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5695608339644145503, guid: 1e656cb2659ae47438f1ef54266342c2, type: 3}
+      propertyPath: eventHandler
+      value: 
+      objectReference: {fileID: 1925099643}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e656cb2659ae47438f1ef54266342c2, type: 3}
 --- !u!1001 &8720779031570208551
@@ -6870,6 +6887,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3267332771721980366, guid: f040e5714f9c8c344b969d6e927ad864, type: 3}
+      propertyPath: eventHandler
+      value: 
+      objectReference: {fileID: 1925099643}
     - target: {fileID: 8486760281214908619, guid: f040e5714f9c8c344b969d6e927ad864, type: 3}
       propertyPath: m_Name
       value: Basketball

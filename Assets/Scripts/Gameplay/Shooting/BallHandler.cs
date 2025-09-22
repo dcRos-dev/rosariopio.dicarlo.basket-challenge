@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -7,7 +6,11 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class BallHandler : MonoBehaviour
 {
+    [SerializeReference] EventHandler eventHandler;
+
     [HideInInspector] public bool touchedRim, touchedBackboard = false;
+
+    private int eventScore = 0;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -21,6 +24,8 @@ public class BallHandler : MonoBehaviour
         {
             touchedBackboard = true;
             Debug.Log("the ball touched the backboard");
+            eventScore = eventHandler.GetEventPoints();
+           
         }
 
     }
@@ -32,16 +37,30 @@ public class BallHandler : MonoBehaviour
     /// </summary>
     public int GetScore()
     {
-        if(touchedBackboard || touchedRim)
-        {
-            return 2;
-        }
-        return 3;
+        return GetNormalScore() + GetEventScore();
     }
 
     public void ResetShot()
     {
         touchedRim = false;
         touchedBackboard = false;
+        eventScore = 0;
+        
+    }
+
+
+    private int GetNormalScore()
+    {
+        if (touchedBackboard || touchedRim)
+        {
+            return 2;
+        }
+        return 3;
+    }
+
+    private int GetEventScore()
+    {
+        if (eventScore == 0) return 0;
+        return eventScore;
     }
 }

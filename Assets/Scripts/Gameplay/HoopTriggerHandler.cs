@@ -8,6 +8,8 @@ using UnityEngine;
 public class HoopTriggerHandler : MonoBehaviour
 {
     public event Action<int> OnScore;
+    [SerializeReference] private EventHandler eventHandler;
+
 
     void Start()
     {
@@ -29,7 +31,15 @@ public class HoopTriggerHandler : MonoBehaviour
             if(ballHandler != null)
             {
                 if (ballHandler.touchedRim) Debug.Log("rimshot!");
-                if (ballHandler.touchedBackboard) Debug.Log("backboard shot!");
+                if (ballHandler.touchedBackboard)
+                {
+                    if (eventHandler.CheckEvent())
+                    {
+
+                        //check for active event, then resets
+                        eventHandler.ResetEvent();
+                    }
+                }
             }
 
             OnScore?.Invoke(ballHandler.GetScore());
