@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,9 +16,9 @@ public class GameplayManager : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI scoreFlyerText;
+    [SerializeField] private Animator scoreFlyerAnimator;
     [SerializeField] private GameObject LoadingPanel;
-
-
 
     public static event Action OnTimeFinished;
 
@@ -72,7 +73,8 @@ public class GameplayManager : MonoBehaviour
     /// </summary>
     /// <param name="pt">The number of points to add to the score.</param>
     public void IncreaseScore(int pt)
-    {
+    { 
+        SetFlyScoreText(pt);
         score += pt;
         UpdateScoreUI(score);
         Debug.Log("Earned points: " + pt);
@@ -98,7 +100,21 @@ public class GameplayManager : MonoBehaviour
         scoreText.text = score.ToString();
     }
 
+    /// <summary>
+    /// Updates the score flyer text with the given point value
+    /// </summary>
+    public void SetFlyScoreText(int pt)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("+");
+        sb.Append(pt);
 
+        scoreFlyerText.text = sb.ToString();
+
+        // animation
+        scoreFlyerAnimator.Play("popup", -1, 0f);
+
+    }
 
 }
 
